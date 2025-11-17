@@ -21,6 +21,7 @@ VALUES ('SC-01', 'LP-01', 'Sucursal Central', 'Av. Principal 123', 'system_init'
 -- 5. Crear el Usuario 'admin'
 -- (Usa el idRol 1 que creamos en el paso 2)
 -- IMPORTANTE: La contraseña está hasheada.
+--aqui esta la contraseña
 INSERT INTO TUsuarios (idUsuario, idRol, password, email, usuarioA) 
 VALUES (
     'admin', 
