@@ -39,7 +39,7 @@ createApp({
                     if (data.role === 'Administrador' || data.role === 'Cajero') {
                         window.location.href = 'pos-app/index.html';
                     } else if (data.role === 'Cliente') {
-                        windows.location.href = 'client-app/index.html';
+                        window.location.href = 'client-app/index.html';
                     } else {
                         this.message = 'Rol no  reconocido';
                         this.messageColor = 'red';
