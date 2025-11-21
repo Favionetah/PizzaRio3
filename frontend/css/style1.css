@@ -1,0 +1,109 @@
+/* --- Layout del Cliente (Menú + Carrito) --- */
+.client-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px; /* El carrito ocupa 350px fijos a la derecha */
+    gap: 20px;
+    height: calc(100vh - 80px); /* Altura total menos el header */
+    overflow: hidden; /* Para que el scroll sea interno */
+}
+
+/* Columna del Menú */
+.menu-column {
+    padding: 20px;
+    overflow-y: auto; /* Scroll solo en el menú */
+    background-color: #f9f9f9;
+}
+
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card-producto {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.card-producto:hover { transform: translateY(-5px); }
+
+.foto-producto {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.info-producto { padding: 15px; }
+.precio-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--bk-red);
+}
+
+.btn-add {
+    background-color: var(--bk-orange);
+    color: var(--bk-brown);
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Columna del Carrito */
+.cart-column {
+    background: white;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+}
+
+.cart-header, .cart-footer {
+    padding: 20px;
+    background: #fff;
+}
+.cart-header { border-bottom: 1px solid #eee; background: var(--bk-cream); }
+.cart-footer { border-top: 1px solid #eee; margin-top: auto; }
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+
+.cart-controls button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+}
+
+.btn-checkout {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--bk-red);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-checkout:disabled { background-color: #ccc; cursor: not-allowed; }
