@@ -65,7 +65,7 @@ export default {
                     <button 
                         class="btn-checkout" 
                         :disabled="carrito.length === 0"
-                        @click="alert('¡Pronto conectaremos esto a la base de datos!')"
+                        @click="checkout"
                     >
                         CONFIRMAR PEDIDO ✅
                     </button>
@@ -130,6 +130,43 @@ export default {
             // Si la cantidad llega a 0, lo borramos del carrito
             if (item.cantidad <= 0) {
                 this.carrito = this.carrito.filter(i => i.id !== item.id);
+            }
+        },
+
+
+        async checkout() {
+            if (this.carrito.length === 0) return;
+
+            const confirmar = confirm(`¿Confirmar pedido por Bs ${this.totalCarrito}?`);
+            if (!confirmar) return;
+
+            try {
+                const token = localStorage.getItem('token'); // Necesitamos el token para identificarnos
+
+                const response = await fetch('http://localhost:3000/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // ¡Enviamos el pase VIP!
+                    },
+                    body: JSON.stringify({
+                        total: this.totalCarrito,
+                        carrito: this.carrito
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(`✅ ${data.message}\nTu número de pedido es: #${data.idPedido}`);
+                    this.carrito = []; // Vaciamos el carrito
+                } else {
+                    alert("❌ Error: " + data.message);
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("Error de conexión");
             }
         }
     },
