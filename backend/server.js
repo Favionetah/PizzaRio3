@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -8,11 +9,17 @@ app.use(express.json()); //para que entienda json que envia el Frontend (ej: el 
 
 const authRoutes = require('./routes/auth.routes');
 const posRoutes = require('./routes/pos.routes.js');
+const clientRoutes = require('./routes/client.routes.js');
+//const productRoutes = require('./routes/product.routes.js');
 
 
 app.use('/api/auth', authRoutes);
-//app.use('/api/products', productRoutes); //aqui van las rutas de productos cuando se creen
 app.use('/api/pos', posRoutes);
+app.use('/api', clientRoutes);
+//app.use('/api/products', productRoutes);
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 

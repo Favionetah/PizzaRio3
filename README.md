@@ -1,62 +1,60 @@
 /proyecto_pizzeria/
-├── 📂 backend/         // Todo tu código de NodeJS (servidor, API)
-│   ├── 📂 config/
-│   │   └── db.js       // Configuración de la conexión a MySQL
-│   │
-│   ├── 📂 controllers/ // Lógica de negocio
-│   │   ├── auth.controller.js    // Iniciar sesión, registrarse
-│   │   ├── product.controller.js // Obtener pizzas, bebidas, etc.
-│   │   └── order.controller.js   // Crear orden, ver órdenes
-│   │
-│   ├── 📂 middleware/
-│   │   └── auth.js     // Verifica el token (JWT) y el ROL (si es 'cliente' o 'cajero')
-│   │
-│   ├── 📂 models/      // Lógica de la base de datos (consultas SQL)
-│   │   ├── user.model.js
-│   │   ├── product.model.js
-│   │   └── order.model.js
-│   │
-│   ├── 📂 routes/      // Define las rutas de tu API
-│   │   ├── auth.routes.js    // POST /api/auth/login
-│   │   ├── client.routes.js  // GET /api/products, POST /api/orders
-│   │   └── pos.routes.js     // GET /api/orders/pending, PUT /api/orders/complete/:id
-│   │
-│   ├── server.js       // El archivo principal que inicia el servidor (Express)
-│   └── package.json
+backend/
+├── 📂 config/
+│   └── ✅ db.js                // Conexión a MySQL (Ya funciona).
 │
-├── 📂 frontend/        // Todo tu HTML, CSS y JS del lado del cliente
-│   │
-│   ├── 📂 client-app/    // <-- Aplicación para el CLIENTE
-│   │   ├── index.html    // Menú principal
-│   │   ├── cart.html     // Carrito de compras y checkout
-│   │   ├── my-orders.html// Historial de pedidos
-│   │   ├── css/
-│   │   │   └── style.css
-│   │   └── js/
-│   │       ├── main.js   // Lógica del menú
-│   │       └── cart.js   // Lógica del carrito
-│   │
-│   ├── 📂 pos-app/       // <-- Aplicación para el CAJERO (Punto de Venta)
-│   │   ├── index.html    // Dashboard para tomar órdenes
-│   │   ├── queue.html    // Cola de pedidos pendientes
-│   │   ├── css/
-│   │   │   └── style.css
-│   │   └── js/
-│   │       ├── main.js   // Lógica para crear un nuevo pedido
-│   │       └── queue.js  // Lógica para gestionar la cola
-│   │
-│   ├── 📂 common/        // Archivos compartidos por ambas apps (cliente y pos)
-│   │   ├── img/
-│   │   │   ├── logo.png
-│   │   │   └── pizza_foto.jpg
-│   │   └── js/
-│   │       └── api.js    // (Opcional) Funciones para hacer 'fetch' al backend
-│   │
-│   ├── login.html        // La página de inicio de sesión (COMÚN para ambos)
-│   ├── login.css
-│   └── login.js          // JS que maneja el login y REDIRIGE
+├── 📂 middleware/
+│   └── ✅ auth.js              // Seguridad: Verifica Token y ahora ROL (Admin/Cajero).
 │
-├── 📂 database/
-│   └── schema.sql      // Script para crear tus tablas (users, products, orders)
+├── 📂 models/                  // Consultas SQL
+│   ├── ✅ user.model.js        // Buscar usuarios y roles (Ya funciona).
+│   ├── 🚧 product.model.js     // (TÚ) Consultas para obtener pizzas y categorías.
+│   └── 🆕 order.model.js       // (Persona 4) Consultas para crear pedidos.
 │
-└── README.md
+├── 📂 controllers/             // Lógica de control
+│   ├── ✅ auth.controller.js   // Login y generación de Token (Ya funciona).
+│   ├── 🚧 product.controller.js// (TÚ) Enviar el JSON del menú al cliente.
+│   └── 🆕 order.controller.js  // (Persona 4) Recibir y procesar pedidos.
+│
+├── 📂 routes/                  // Definición de URLs
+│   ├── ✅ auth.routes.js       // POST /api/auth/login (Ya funciona).
+│   ├── ✅ pos.routes.js        // Rutas protegidas para el Cajero (Ya probaste el 403).
+│   └── 🚧 client.routes.js     // (TÚ) Rutas públicas (GET /api/products).
+│
+├── ✅ server.js                // Archivo principal (Ya configurado, faltan conectar nuevas rutas).
+├── ✅ package.json             // Dependencias instaladas.
+└── ✅ _createHash.js           // Herramienta útil para crear contraseñas.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+frontend/
+│
+├── 🆕 index.html           // (TÚ) El MAESTRO. Reemplaza a login.html.
+│                           // Es el marco vacío que carga Vue y los estilos.
+│
+├── 💀 login.html           // (BORRAR) Ya no lo necesitas, su código se muda a LoginView.js
+├── 💀 login.js             // (BORRAR) Se muda a LoginView.js
+│
+├── 📂 css/                 // Estilos
+│   ├── 🆕 style.css        // (TÚ) Estilos globales (fuentes, reset).
+│   ├── 🆕 client.css       // (Persona 2) Estilo Burger King (Grid, colores).
+│   └── 🆕 pos.css          // (Persona 3) Estilo Sistema de Cajero (Tablas, botones).
+│
+├── 📂 js/
+│   ├── 🚧 app.js           // (TÚ) El CEREBRO de Vue.
+│   │                       // Importa las vistas y decide cuál mostrar según el login.
+│   │
+│   └── 📂 views/           // LOS COMPONENTES (Aquí trabaja el equipo sin estorbarse)
+│       ├── 🚧 LoginView.js   // (TÚ) Migra aquí la lógica que tenías en login.js.
+│       ├── 🆕 ClientView.js  // (Persona 2) El Menú estilo Burger King.
+│       └── 🆕 PosView.js     // (Persona 3) El Dashboard del Cajero.
+│
+└── 📂 assets/              // Imágenes
+    ├── logo.png
+    ├── pizza_pepperoni.png
+    └── ... (y todas las imagenes que usaremos)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+database/
+└── ✅ schema.sql           // Tu script de creación de tablas (Ya está en MySQL).

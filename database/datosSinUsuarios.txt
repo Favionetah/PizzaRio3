@@ -1,0 +1,137 @@
+-- =============================================
+-- 1. COMPLETANDO DEPARTAMENTOS (BOLIVIA)
+-- Ya tenías LP, agregamos los 8 restantes
+-- =============================================
+INSERT INTO `tdepartamentos` (`idDepartamento`, `nombreDepartamento`, `usuarioA`) VALUES
+('SC', 'Santa Cruz', 'system_init'),
+('CB', 'Cochabamba', 'system_init'),
+('OR', 'Oruro', 'system_init'),
+('PT', 'Potosí', 'system_init'),
+('CH', 'Chuquisaca', 'system_init'),
+('TJ', 'Tarija', 'system_init'),
+('BE', 'Beni', 'system_init'),
+('PA', 'Pando', 'system_init');
+
+-- =============================================
+-- 2. COMPLETANDO CIUDADES PRINCIPALES
+-- Necesitamos Santa Cruz de la Sierra para las sucursales
+-- =============================================
+INSERT INTO `tciudades` (`idCiudad`, `idDepartamento`, `nombreCiudad`, `usuarioA`) VALUES
+('SC-01', 'SC', 'Santa Cruz de la Sierra', 'system_init'),
+('CB-01', 'CB', 'Cochabamba', 'system_init'), -- Por escalabilidad
+('EA-01', 'LP', 'El Alto', 'system_init');     -- Por escalabilidad
+
+-- =============================================
+-- 3. SUCURSALES (PIZZA RIO)
+-- 14 en Santa Cruz y 2 en La Paz (Miraflores y San Miguel)
+-- =============================================
+
+-- Sucursales Santa Cruz (SC-01 a SC-14)
+INSERT INTO `tsucursales` (`idSucursal`, `idCiudad`, `nombreSucursal`, `direccion`, `usuarioA`) VALUES
+('SC-SUC-01', 'SC-01', 'Equipetrol', 'Calle 9 Oeste #350 (Barrio Equipetrol)', 'system_init'),
+('SC-SUC-02', 'SC-01', 'Av. Banzer', 'Zona Norte, cerca del 7mo Anillo', 'system_init'),
+('SC-SUC-03', 'SC-01', 'Av. Beni', 'Avenida Beni, entre 3er y 4to Anillo', 'system_init'),
+('SC-SUC-04', 'SC-01', 'Av. Alemana', 'Avenida Alemana, 4to Anillo', 'system_init'),
+('SC-SUC-05', 'SC-01', 'Av. Busch (SCZ)', 'Av. Noel Kempff Mercado (3er Anillo) y Av. Busch', 'system_init'),
+('SC-SUC-06', 'SC-01', 'Radial 27', 'Calle Santa Rosa #5005 (Barrio Ulupica)', 'system_init'),
+('SC-SUC-07', 'SC-01', 'Av. Santos Dumont', 'Zona del 5to Anillo', 'system_init'),
+('SC-SUC-08', 'SC-01', 'Av. Piraí', 'Avenida Piraí #300 (Zona Oeste)', 'system_init'),
+('SC-SUC-09', 'SC-01', 'Av. San Aurelio', 'Av. San Aurelio #58 (cerca del Plan 3000)', 'system_init'),
+('SC-SUC-10', 'SC-01', 'Villa 1ro de Mayo', 'Calle 5 Oeste #10-12', 'system_init'),
+('SC-SUC-11', 'SC-01', 'Blacutt', 'Zona Sur, cerca del Estadio/1er Anillo (Barrio Blacutt)', 'system_init'),
+('SC-SUC-12', 'SC-01', 'Melchor Pinto', 'Avenida Melchor Pinto (cerca del 1er-2do anillo)', 'system_init'),
+('SC-SUC-13', 'SC-01', 'Av. Paurito', 'Frente al surtidor, Av. Cañada Pailita', 'system_init'),
+('SC-SUC-14', 'SC-01', 'Km 9 Doble Vía', 'Km 9 Doble Vía La Guardia, Zona sur-oeste', 'system_init');
+
+-- Sucursales La Paz (LP-SUC-01 a LP-SUC-02)
+-- Nota: La sucursal 'SC-01' (Sucursal Central) que estaba en tu dump original la dejo intacta, 
+-- agrego estas nuevas específicas que pediste.
+INSERT INTO `tsucursales` (`idSucursal`, `idCiudad`, `nombreSucursal`, `direccion`, `usuarioA`) VALUES
+('LP-SUC-01', 'LP-01', 'Miraflores', 'Avenida Germán Busch #1559', 'system_init'),
+('LP-SUC-02', 'LP-01', 'San Miguel', 'Calle Claudio Aliaga, esquina Av. Montenegro', 'system_init');
+
+-- =============================================
+-- 4. CATEGORÍAS DE PIZZA
+-- Basado en el ENUM de tu tabla ('Normal','Bordes Rellenos','Mitad-Mitad')
+-- =============================================
+INSERT INTO `tcategoriaspizza` (`nombreCategoria`, `descripcion`, `usuarioA`) VALUES
+('Normal', 'Masa tradicional crocante', 'system_init'),
+('Bordes Rellenos', 'Borde relleno de queso catupiry o cheddar', 'system_init'),
+('Mitad-Mitad', 'Dos sabores en una sola pizza familiar', 'system_init');
+
+-- =============================================
+-- 5. INGREDIENTES (Inventario Básico)
+-- =============================================
+INSERT INTO `tingredientes` (`nombreIngrediente`, `unidadMedida`, `precioUnitario`, `usuarioA`) VALUES
+('Harina', 'Kg', 8.50, 'system_init'),
+('Salsa de Tomate', 'Lt', 12.00, 'system_init'),
+('Queso Mozzarella', 'Kg', 45.00, 'system_init'),
+('Jamón', 'Kg', 35.00, 'system_init'),
+('Pepperoni', 'Kg', 55.00, 'system_init'),
+('Carne de Res', 'Kg', 40.00, 'system_init'),
+('Pollo Desmenuzado', 'Kg', 28.00, 'system_init'),
+('Queso Catupiry', 'Kg', 50.00, 'system_init'),
+('Piña', 'Unidad', 10.00, 'system_init'),
+('Champiñones', 'Lata', 15.00, 'system_init'),
+('Aceitunas Negras', 'Frasco', 20.00, 'system_init'),
+('Orégano', 'Sobre', 5.00, 'system_init'),
+('Tocino', 'Kg', 60.00, 'system_init');
+
+-- =============================================
+-- 6. MENÚ DE PIZZAS
+-- Asumimos idCategoria 1 (Normal) para el menú base
+-- =============================================
+INSERT INTO `tpizza` (`idPizza`, `idCategoria`, `nombrePizza`, `precio`, `descripcion`, `usuarioA`) VALUES
+('PIZ-001', 1, 'Mozzarella', 45.00, 'Clásica salsa de tomate, doble queso mozzarella y orégano', 'system_init'),
+('PIZ-002', 1, 'Napolitana', 50.00, 'Mozzarella, rodajas de tomate, ajo y parmesano', 'system_init'),
+('PIZ-003', 1, 'Hawaiana', 55.00, 'Mozzarella, jamón y piña', 'system_init'),
+('PIZ-004', 1, 'Pepperoni', 60.00, 'Salsa, mozzarella y abundante pepperoni', 'system_init'),
+('PIZ-005', 1, 'Carnívora', 65.00, 'Mozzarella, carne de res, jamón, tocino y pepperoni', 'system_init'),
+('PIZ-006', 1, 'Pollo Catupiry', 62.00, 'Pollo desmenuzado con abundante queso Catupiry (Favorita en SCZ)', 'system_init'),
+('PIZ-007', 1, 'Strogonoff', 65.00, 'Salsa strogonoff de carne, papas al hilo y mozzarella', 'system_init'),
+('PIZ-008', 1, 'Vegetariana', 55.00, 'Mozzarella, champiñones, pimientos, cebolla y aceitunas', 'system_init');
+
+-- =============================================
+-- 7. RECETAS (Pizza Ingredientes - Ejemplo)
+-- Vinculando ingredientes a la Pizza Hawaiana (PIZ-003)
+-- =============================================
+-- Asumiendo IDs: 1=Harina, 2=Salsa, 3=Mozzarella, 4=Jamon, 9=Piña (Verificar IDs generados)
+-- Nota: En un entorno real los IDs son autoincrementables, aquí uso subconsultas para ser preciso.
+
+INSERT INTO `tpizzaingredientes` (`idPizza`, `idIngrediente`, `cantidad`, `usuarioA`)
+SELECT 'PIZ-003', idIngrediente, 0.300, 'system_init' FROM `tingredientes` WHERE nombreIngrediente = 'Harina'
+UNION ALL
+SELECT 'PIZ-003', idIngrediente, 0.100, 'system_init' FROM `tingredientes` WHERE nombreIngrediente = 'Salsa de Tomate'
+UNION ALL
+SELECT 'PIZ-003', idIngrediente, 0.250, 'system_init' FROM `tingredientes` WHERE nombreIngrediente = 'Queso Mozzarella'
+UNION ALL
+SELECT 'PIZ-003', idIngrediente, 0.100, 'system_init' FROM `tingredientes` WHERE nombreIngrediente = 'Jamón'
+UNION ALL
+SELECT 'PIZ-003', idIngrediente, 0.100, 'system_init' FROM `tingredientes` WHERE nombreIngrediente = 'Piña';
+
+-- =============================================
+-- 8. PRODUCTOS ADICIONALES
+-- Bebidas y postres
+-- =============================================
+INSERT INTO `tproductos` (`idProducto`, `nombreProducto`, `tipoProducto`, `precio`, `descripcion`, `usuarioA`) VALUES
+('BEB-001', 'Coca Cola 2L', 'Bebida', 15.00, 'Botella retornable', 'system_init'),
+('BEB-002', 'Agua Mineral 600ml', 'Bebida', 8.00, 'Sin gas', 'system_init'),
+('BEB-003', 'Jugo del Valle', 'Bebida', 12.00, 'Sabor Durazno', 'system_init'),
+('COM-001', 'Palitos de Ajo', 'Complemento', 18.00, '6 unidades con salsa de la casa', 'system_init'),
+('POS-001', 'Brownie con Helado', 'Postre', 20.00, 'Brownie caliente con bola de helado de vainilla', 'system_init');
+
+-- =============================================
+-- 9. MÉTODOS DE PAGO
+-- Según tu ENUM: 'Tarjeta','QR','Efectivo'
+-- =============================================
+INSERT INTO `tmetodospago` (`nombreMetodo`, `descripcion`, `usuarioA`) VALUES
+('Efectivo', 'Pago en moneda nacional (BOB)', 'system_init'),
+('QR', 'Pago digital via QR Simple', 'system_init'),
+('Tarjeta', 'Débito o Crédito (Visa/Mastercard)', 'system_init');
+
+-- =============================================
+-- 10. HORARIOS
+-- =============================================
+INSERT INTO `thorarios` (`nombreHorario`, `horaInicio`, `horaFin`, `descripcion`, `usuarioA`) VALUES
+('Turno Mañana', '08:00:00', '16:00:00', 'Apertura y preparación', 'system_init'),
+('Turno Tarde/Noche', '16:00:00', '23:59:00', 'Hora pico y cierre', 'system_init');

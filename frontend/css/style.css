@@ -57,7 +57,7 @@ body::before {
 
     /* --- Todas las propiedades de fondo van aquí --- */
     background-color: var(--bg-crema);
-    background-image: url('../images/pizzaFondo.png');
+    /*background-image: url('../images/pizzaFondo.png');*/
     /*background-repeat: repeat 100;*/
     background-size: 200px;
     
