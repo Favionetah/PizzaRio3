@@ -28,7 +28,7 @@ Order.create = async (orderData) => {
                 INSERT  INTO TDetallePedidos
                 (idPedido, idPizza, idProducto, cantidad, precioUnitario, subtotal)
                 VALUES (?, ?, ?, ?, ?, ?)
-                ` [
+                `, [
                     idPedidoGenerado,
                     idPizza,
                     idProducto,
@@ -45,4 +45,4 @@ Order.create = async (orderData) => {
     }
 };
 
-module.export = Order;
+module.exports = Order;
