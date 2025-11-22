@@ -6,6 +6,8 @@ const OrderController = {};
 OrderController.createOrder = async (req, res) => {
     try {
         const { total, carrito, nombreClienteManual } = req.body;
+
+        console.log("Datos recibidos:", req.body);
         
         // 1. DETERMINAR QUIÉN ES EL CLIENTE EN LA BASE DE DATOS
         let ciClienteFinal;
@@ -14,7 +16,7 @@ OrderController.createOrder = async (req, res) => {
         // Si el usuario logueado es ADMIN o CAJERO (Venta POS)
         if (req.user.role === 'Administrador' || req.user.role === 'Cajero') {
             // En POS, el cliente en BD es el "GENERICO"
-            ciClienteFinal = 'GENERICO'; 
+            ciClienteFinal = nombreClienteManual; 
             
             // Y el empleado responsable es el usuario logueado (si coincide con CIEmpleado)
             // O usamos un default si tu sistema de IDs de usuario es diferente al de empleados

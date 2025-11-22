@@ -219,6 +219,7 @@ export default {
                         carrito: this.carrito,
                         // Aquí podrías enviar el nombreCliente si modificas el backend para recibirlo
                         // Por ahora usaremos el ID del usuario logueado
+                        nombreClienteManual: this.nombreCliente
                     })
                 });
 
