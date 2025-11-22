@@ -150,7 +150,6 @@ export default {
             categorias: ['Pizzas', 'Bebidas', 'Combos', 'Otros'],
             filtro: 'Pizzas',
             busqueda: '',
-            nombreCliente: 'Juan Perez', // Default para probar
             
             // DATOS DE LA COLA (Gestionar)
             pedidosPendientes: [],
@@ -180,7 +179,7 @@ export default {
         this.cargarProductos();
         this.cargarPedidosPendientes();
         // Polling automático cada 5 seg para ver nuevos pedidos
-        this.timer = setInterval(this.cargarPedidosPendientes, 500);
+        this.timer = setInterval(this.cargarPedidosPendientes, 5000);
     },
     unmounted() {
         clearInterval(this.timer);

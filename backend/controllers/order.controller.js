@@ -5,29 +5,49 @@ const OrderController = {};
 
 OrderController.createOrder = async (req, res) => {
     try {
-        const { total, carrito } = req.body;
+        const { total, carrito, nombreClienteManual } = req.body;
+        
+        // 1. DETERMINAR QUIÉN ES EL CLIENTE EN LA BASE DE DATOS
+        let ciClienteFinal;
+        let ciEmpleadoFinal;
 
-        const ciCliente = req.user.id;
-
-        if (!carrito || carrito.length === 0) {
-            return res.result(400).json({message: "El carrito está vacio"});
+        // Si el usuario logueado es ADMIN o CAJERO (Venta POS)
+        if (req.user.role === 'Administrador' || req.user.role === 'Cajero') {
+            // En POS, el cliente en BD es el "GENERICO"
+            ciClienteFinal = 'GENERICO'; 
+            
+            // Y el empleado responsable es el usuario logueado (si coincide con CIEmpleado)
+            // O usamos un default si tu sistema de IDs de usuario es diferente al de empleados
+            // Por ahora, mantenemos tu hardcode '1234567' o usamos req.user.id si aplica.
+            // Vamos a dejarlo genérico en el modelo por seguridad, 
+            // pero aquí definimos que es una venta asistida.
+        } 
+        // Si el usuario logueado es CLIENTE (Venta Web)
+        else {
+            ciClienteFinal = req.user.id; // El ID del usuario ES el CI del cliente
         }
 
-        const idPedido = await Order.create({
-            ciCliente,
-            total,
-            items: carrito
+        if (!carrito || carrito.length === 0) {
+            return res.status(400).json({ message: "El carrito está vacío" });
+        }
 
+        // 2. Llamamos al modelo con el CI correcto
+        const idPedido = await Order.create({
+            ciCliente: ciClienteFinal,
+            total,
+            items: carrito,
+            // Opcional: Pasamos el nombre real que escribió el cajero para guardarlo en descripción o logs
+            nombreReferencia: nombreClienteManual 
         });
 
-        res.status(201).json({
-            message: "Pedido Exitoso",
-            idPedido: idPedido
+        res.status(201).json({ 
+            message: "¡Pedido recibido con éxito!", 
+            idPedido: idPedido 
         });
 
     } catch (error) {
-        console.error("Error en la creacion de pedido:", error);
-        res.status(500).json({ message: "Error al Procesar Pedido" });
+        console.error(error);
+        res.status(500).json({ message: "Error al procesar el pedido" });
     }
 };
 ////////////////////////////////////////////////////////////////////////

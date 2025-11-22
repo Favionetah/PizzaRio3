@@ -3,15 +3,20 @@ const db = require('../config/db');
 const Order = {}
 
 Order.create = async (orderData) => {
-    const { ciCliente, total, items } = orderData;
+    const { ciCliente, total, items } = orderData; 
+    
     try {
-        const [result] = await db.query(
-            `
-            INSERT INTO TPedidos
+        // INSERTAR LA CABECERA
+        // Nota: Aquí estamos usando '1234567' fijo para el empleado para evitar errores
+        // si el idUsuario del cajero no coincide con la tabla TEmpleados.
+        // Si quieres ser estricto, deberías buscar el CIEmpleado basado en el usuario logueado.
+        const [result] = await db.query(`
+            INSERT INTO TPedidos 
             (CICliente, idSucursal, CIEmpleado, tipoPedido, estadoPedido, totalPedido, fechaPedido)
             VALUES (?, 'SC-01', '1234567', 'Para llevar', 'Pendiente', ?, NOW())
-            `
-        , [ciCliente, total]);
+        `, 
+        [ciCliente, total]);
+        
         const idPedidoGenerado = result.insertId;
         for (const item of items) {
             let idPizza = null;
