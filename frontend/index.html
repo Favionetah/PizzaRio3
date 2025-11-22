@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Río</title>
-    <!--<link rel="stylesheet" href="css/style.css">--> <!-- CONEXION AL CSS -->
-    <link rel="stylesheet" href="css/style1.css"> <!-- CONEXION AL CSS -->
-    <link rel="stylesheet" href="css/pos.css"> 
-    <link rel="stylesheet" href="css/admin.css">
+    <!-- SOLO UN ARCHIVO CSS UNIFICADO -->
+    <link rel="stylesheet" href="css/style1.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -31,12 +29,6 @@
         </header>
 
         <main class="main-content">
-            <!--<component 
-                :is="currentView" 
-                :user="user"  @navigate="handleNavigation"
-                @navigate="handleNavigation"
-                @login-success="handleLoginSuccess"
-            ></component>-->
             <component 
                 :is="currentView" 
                 :user="user"
@@ -46,7 +38,7 @@
             ></component>
         </main>
 
-        <footer class="Pizza Rio-footer">
+        <footer class="pizza-rio-footer">
             <p>&copy; 2025 Pizza Río Bolivia. Todos los derechos reservados.</p>
         </footer>
     </div>
