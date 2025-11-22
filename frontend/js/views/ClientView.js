@@ -4,7 +4,7 @@ export default {
             
             <div class="menu-column">
                 <div class="header-menu">
-                    <h2>Hola, {{ user.nombre }}</h2>
+                    <h2>Hola, {{ user ? user.nombre : 'Invitado' }}</h2>
                     <div class="filtros">
                         <button :class="{ activo: filtro === 'Todos' }" @click="filtro = 'Todos'">Todos</button>
                         <button :class="{ activo: filtro === 'Pizzas' }" @click="filtro = 'Pizzas'">🍕 Pizzas</button>
@@ -88,21 +88,23 @@ export default {
                         :disabled="carrito.length === 0"
                         @click="checkout"
                     >
-                        CONFIRMAR PEDIDO ✅
+                        {{ user ? 'CONFIRMAR PEDIDO ✅' : 'INICIAR SESIÓN PARA PEDIR' }}
                     </button>
                 </div>
             </div>
 
         </div>
     `,
-    props: ['user'], 
+    props: ['user'],
     data() {
         return {
             productos: [],
             loading: true,
             filtro: 'Todos',
             // 1. NUEVO: Aquí guardaremos lo que el usuario elija
-            carrito: [] 
+            carrito: [],
+            modalOpen: false,
+            selectedProduct: null
         }
     },
     computed: {
@@ -130,6 +132,14 @@ export default {
         }
     },
     methods: {
+        openModal(prod) {
+            this.selectedProduct = prod;
+            this.modalOpen = true;
+        },
+        closeModal() {
+            this.modalOpen = false;
+            this.selectedProduct = null;
+        },
         // 3. NUEVO: Función inteligente para añadir
         agregar(prod) {
             // Buscamos si este producto YA existe en el carrito
@@ -157,6 +167,12 @@ export default {
 
         async checkout() {
             if (this.carrito.length === 0) return;
+
+            if (!this.user) {
+                alert('Por favor, inicia sesión para confirmar tu pedido.');
+                this.$emit('navigate', 'login-view');
+                return;
+            }
 
             const confirmar = confirm(`¿Confirmar pedido por Bs ${this.totalCarrito}?`);
             if (!confirmar) return;
