@@ -7,8 +7,10 @@
     <title>Pizza Río</title>
     <!-- SOLO UN ARCHIVO CSS UNIFICADO -->
     <link rel="stylesheet" href="css/style1.css">
-    <link rel="stylesheet" href="css/pos.css"> 
+    <link rel="stylesheet" href="css/pos.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Google Maps API (Placeholder Key) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE"></script>
 </head>
 
 <body>
@@ -22,6 +24,7 @@
             <nav>
                 <a href="#" @click.prevent="currentView = 'home-view'">Inicio</a>
                 <a href="#" @click.prevent="currentView = 'showcase-view'">Menú</a>
+                <a href="#" @click.prevent="currentView = 'map-view'">Sucursales</a>
                 <a href="#" @click.prevent="currentView = 'client-view'">Pedidos</a>
                 <a href="#" v-if="user && user.role === 'Administrador'"
                     @click.prevent="currentView = 'admin-view'">Administración</a>
