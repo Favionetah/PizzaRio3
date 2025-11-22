@@ -1,0 +1,18 @@
+/* Estilos mínimos para AdminCashiersView */
+.admin-cashiers-view { max-width: 980px; margin: 18px auto; padding: 12px; font-family: Arial, sans-serif; }
+.admin-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px }
+.admin-header h2 { margin:0 }
+.btn-back { background:#eee; border:1px solid #ccc; padding:6px 10px; border-radius:6px }
+.admin-actions { display:flex; gap:18px }
+.form-create { flex:1; padding:12px; border:1px solid #e6e6e6; border-radius:8px }
+.form-create label { display:block; font-size:13px; margin-top:8px }
+.form-create input { width:100%; padding:8px; margin-top:4px; border-radius:6px; border:1px solid #ccc }
+.form-actions { margin-top:12px }
+.btn-primary{ background:#2d8cff; color:white; padding:8px 12px; border-radius:6px; border:none }
+.btn-secondary{ background:#f0f0f0; padding:8px 12px; border-radius:6px; border:1px solid #ddd }
+.cashiers-list { flex:2 }
+.cashiers-list table { width:100%; border-collapse:collapse }
+.cashiers-list th, .cashiers-list td { padding:8px; border-bottom:1px solid #eee; text-align:left }
+.btn-sm{ padding:6px 8px; border-radius:6px; margin-right:6px }
+.btn-sm.danger{ background:#ff6b6b; color:white; border:none }
+.loading { color:#666 }
