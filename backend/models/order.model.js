@@ -15,7 +15,7 @@ Order.create = async (orderData) => {
             (CICliente, idSucursal, CIEmpleado, tipoPedido, estadoPedido, totalPedido, fechaPedido)
             VALUES (?, 'SC-01', '1234567', 'Para llevar', 'Pendiente', ?, NOW())
         `, 
-        [ciCliente, total]);
+        [ciCliente, total]); // <--- ¡AQUÍ entra 'GENERICO'!
         
         const idPedidoGenerado = result.insertId;
         for (const item of items) {
