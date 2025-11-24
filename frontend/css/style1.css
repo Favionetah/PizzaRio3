@@ -30,7 +30,7 @@ body {
 
 /* Contenedor Principal */
 #app {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background: url('../images/pizzaHomeView.jpg') no-repeat center center fixed;
@@ -114,7 +114,9 @@ nav a.is-active {
     font-size: 1rem;
 }
 
-.btn-pide-aqui:hover { background-color: #c72d12; }
+.btn-pide-aqui:hover {
+    background-color: #c72d12;
+}
 
 .btn-register {
     background-color: transparent;
@@ -136,14 +138,14 @@ nav a.is-active {
     font-size: 0.9rem;
     width: 100%;
     flex-shrink: 0;
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0;
     left: 0;
     z-index: 10;
 }
 
-.pizza-rio-footer p { 
-    margin: 0; 
+.pizza-rio-footer p {
+    margin: 0;
 }
 
 /* =========================================
@@ -153,9 +155,11 @@ nav a.is-active {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 80px; /* Altura aproximada del footer */
+    margin-bottom: 80px;
+    /* Altura aproximada del footer */
     position: relative;
 }
+
 /* =========================================
    4. VISTA HOME
    ========================================= */
@@ -210,8 +214,8 @@ nav a.is-active {
     text-align: left;
 }
 
-.home-text-block .additional-info h3 { 
-    color: var(--amarillo-dorado); 
+.home-text-block .additional-info h3 {
+    color: var(--amarillo-dorado);
     margin-bottom: 15px;
 }
 
@@ -251,7 +255,7 @@ nav a.is-active {
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header-menu h2 {
@@ -336,12 +340,13 @@ nav a.is-active {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
 }
-.card-producto:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+.card-producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .foto-producto {
@@ -350,8 +355,8 @@ nav a.is-active {
     object-fit: cover;
 }
 
-.info-producto { 
-    padding: 15px; 
+.info-producto {
+    padding: 15px;
 }
 
 .info-producto h3 {
@@ -397,15 +402,17 @@ nav a.is-active {
     border-left: 1px solid #ddd;
     display: flex;
     flex-direction: column;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
 }
 
-.cart-header, .cart-footer {
+.cart-header,
+.cart-footer {
     padding: 20px;
     background: #fff;
 }
-.cart-header { 
-    border-bottom: 1px solid #eee; 
+
+.cart-header {
+    border-bottom: 1px solid #eee;
     background: var(--bg-crema);
     display: flex;
     justify-content: space-between;
@@ -426,8 +433,8 @@ nav a.is-active {
     font-weight: bold;
 }
 
-.cart-footer { 
-    border-top: 1px solid #eee; 
+.cart-footer {
+    border-top: 1px solid #eee;
     margin-top: auto;
 }
 
@@ -512,10 +519,12 @@ nav a.is-active {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.btn-checkout:disabled { 
-    background-color: #ccc; 
+
+.btn-checkout:disabled {
+    background-color: #ccc;
     cursor: not-allowed;
 }
+
 .btn-checkout:not(:disabled):hover {
     background-color: #c52e12;
     transform: translateY(-2px);
@@ -579,8 +588,8 @@ nav a.is-active {
     margin-bottom: 20px;
 }
 
-.login-form div { 
-    margin-bottom: 25px; 
+.login-form div {
+    margin-bottom: 25px;
 }
 
 .login-form label {
@@ -613,8 +622,8 @@ nav a.is-active {
     transform: translateY(-2px);
 }
 
-.login-form input:hover { 
-    border-color: var(--rojo-tomate); 
+.login-form input:hover {
+    border-color: var(--rojo-tomate);
 }
 
 .btn-login {
@@ -747,8 +756,13 @@ nav a.is-active {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .error-message {
@@ -772,38 +786,37 @@ nav a.is-active {
 .empty-orders {
     text-align: center;
     padding: 60px 20px;
-    background: white;
-    border-radius: 15px;
-    color: var(--txt-cafe);
-}
-
-/* Grid de órdenes */
-.orders-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
-}
-
-.order-card {
-    background: white;
-    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     border-left: 5px solid var(--amarillo-dorado);
 }
 
 .order-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Estados de los pedidos */
-.status-pendiente { border-left-color: var(--amarillo-dorado); }
-.status-en-preparación { border-left-color: #17a2b8; }
-.status-en-camino { border-left-color: #ffc107; }
-.status-entregado { border-left-color: #28a745; }
-.status-cancelado { border-left-color: #dc3545; }
+.status-pendiente {
+    border-left-color: var(--amarillo-dorado);
+}
+
+.status-en-preparación {
+    border-left-color: #17a2b8;
+}
+
+.status-en-camino {
+    border-left-color: #ffc107;
+}
+
+.status-entregado {
+    border-left-color: #28a745;
+}
+
+.status-cancelado {
+    border-left-color: #dc3545;
+}
 
 .order-header {
     display: flex;
@@ -840,11 +853,30 @@ nav a.is-active {
     text-transform: uppercase;
 }
 
-.status-badge.status-pendiente { background: #fff3cd; color: #856404; }
-.status-badge.status-en-preparación { background: #d1ecf1; color: #0c5460; }
-.status-badge.status-en-camino { background: #fff3cd; color: #856404; }
-.status-badge.status-entregado { background: #d4edda; color: #155724; }
-.status-badge.status-cancelado { background: #f8d7da; color: #721c24; }
+.status-badge.status-pendiente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.status-en-preparación {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-badge.status-en-camino {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.status-entregado {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.status-cancelado {
+    background: #f8d7da;
+    color: #721c24;
+}
 
 .load-details {
     text-align: center;
@@ -1007,10 +1039,12 @@ nav a.is-active {
     border-radius: 20px;
     transition: all 0.3s ease;
 }
-.tab-btn.active { 
-    color: var(--rojo-tomate); 
+
+.tab-btn.active {
+    color: var(--rojo-tomate);
     background-color: var(--bg-crema);
 }
+
 .tab-btn:hover {
     background-color: var(--amarillo-dorado);
 }
@@ -1029,29 +1063,36 @@ nav a.is-active {
     transition: all 0.3s ease;
     text-align: center;
     padding-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-.card-pos:hover { 
-    transform: translateY(-3px); 
+
+.card-pos:hover {
+    transform: translateY(-3px);
     border-color: var(--amarillo-dorado);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
-.card-pos:active { transform: scale(0.98); }
-.card-pos img { 
-    width: 100%; 
-    height: 120px; 
+
+.card-pos:active {
+    transform: scale(0.98);
+}
+
+.card-pos img {
+    width: 100%;
+    height: 120px;
     object-fit: cover;
     border-radius: 12px 12px 0 0;
 }
-.card-pos h4 { 
-    margin: 8px 0 5px; 
-    font-size: 0.9rem; 
-    color: var(--txt-cafe); 
+
+.card-pos h4 {
+    margin: 8px 0 5px;
+    font-size: 0.9rem;
+    color: var(--txt-cafe);
     padding: 0 8px;
 }
-.card-pos span { 
-    font-weight: bold; 
-    font-size: 1rem; 
+
+.card-pos span {
+    font-weight: bold;
+    font-size: 1rem;
     color: var(--rojo-tomate);
 }
 
@@ -1062,7 +1103,7 @@ nav a.is-active {
     flex-direction: column;
     background: white;
     padding: 20px;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .client-info-box {
@@ -1097,10 +1138,11 @@ nav a.is-active {
     padding-top: 15px;
     text-align: right;
 }
-.total-big { 
-    font-size: 2rem; 
-    color: var(--rojo-tomate); 
-    font-weight: bold; 
+
+.total-big {
+    font-size: 2rem;
+    color: var(--rojo-tomate);
+    font-weight: bold;
 }
 
 .btn-confirm {
@@ -1116,8 +1158,9 @@ nav a.is-active {
     border-radius: 10px;
     transition: all 0.3s ease;
 }
-.btn-confirm:hover { 
-    background: #c52e12; 
+
+.btn-confirm:hover {
+    background: #c52e12;
     transform: translateY(-2px);
 }
 
@@ -1130,9 +1173,10 @@ nav a.is-active {
     justify-content: space-between;
     align-items: center;
 }
-.queue-mini-list { 
-    font-size: 0.9rem; 
-    color: var(--txt-cafe); 
+
+.queue-mini-list {
+    font-size: 0.9rem;
+    color: var(--txt-cafe);
 }
 
 .btn-ver-mas {
@@ -1153,163 +1197,172 @@ nav a.is-active {
 
 /* MODAL */
 .modal-overlay {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex; 
-    justify-content: center; 
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
     align-items: center;
     z-index: 1000;
 }
+
 .modal-content {
-    background: white; 
-    width: 80%; 
+    background: white;
+    width: 80%;
     max-height: 90%;
-    border-radius: 15px; 
+    border-radius: 15px;
     padding: 20px;
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
-.modal-header { 
-    display: flex; 
-    justify-content: space-between; 
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    color: var(--rojo-tomate); 
+    color: var(--rojo-tomate);
     border-bottom: 2px solid #eee;
     margin-bottom: 15px;
     padding-bottom: 10px;
 }
-.queue-table { 
-    width: 100%; 
-    border-collapse: collapse; 
+
+.queue-table {
+    width: 100%;
+    border-collapse: collapse;
 }
-.queue-table th { 
-    text-align: left; 
+
+.queue-table th {
+    text-align: left;
     color: var(--txt-cafe);
     padding: 12px;
     border-bottom: 2px solid var(--amarillo-dorado);
 }
-.queue-table td { 
-    padding: 12px; 
-    border-bottom: 1px solid #eee; 
+
+.queue-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
 }
 
 /* =========================================
    9. VISTA ADMIN CAJEROS
    ========================================= */
-.admin-cashiers-view { 
-    max-width: 1200px; 
-    margin: 20px auto; 
-    padding: 20px; 
-    font-family: Arial, sans-serif; 
+.admin-cashiers-view {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
     background: var(--bg-crema);
     min-height: calc(100vh - 120px);
 }
 
-.admin-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 2px solid var(--amarillo-dorado);
 }
 
-.admin-header h2 { 
+.admin-header h2 {
     margin: 0;
     color: var(--txt-cafe);
     font-size: 1.8rem;
 }
 
-.btn-back { 
-    background: var(--amarillo-dorado); 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 25px; 
+.btn-back {
+    background: var(--amarillo-dorado);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
     color: var(--txt-cafe);
     transition: all 0.3s ease;
 }
+
 .btn-back:hover {
     background: var(--rojo-tomate);
     color: white;
     transform: translateY(-2px);
 }
 
-.admin-actions { 
-    display: flex; 
+.admin-actions {
+    display: flex;
     gap: 20px;
     margin-top: 20px;
 }
 
-.form-create { 
-    flex: 1; 
-    padding: 20px; 
-    border: 2px solid var(--amarillo-dorado); 
+.form-create {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid var(--amarillo-dorado);
     border-radius: 15px;
     background: white;
 }
 
-.form-create label { 
-    display: block; 
-    font-size: 0.9rem; 
+.form-create label {
+    display: block;
+    font-size: 0.9rem;
     margin-top: 12px;
     color: var(--txt-cafe);
     font-weight: bold;
 }
 
-.form-create input { 
-    width: 100%; 
-    padding: 10px; 
-    margin-top: 6px; 
-    border-radius: 8px; 
+.form-create input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
     border: 2px solid var(--bg-crema);
     transition: all 0.3s ease;
 }
+
 .form-create input:focus {
     border-color: var(--amarillo-dorado);
     outline: none;
 }
 
-.form-actions { 
-    margin-top: 20px; 
+.form-actions {
+    margin-top: 20px;
 }
 
-.btn-primary { 
-    background: var(--rojo-tomate); 
-    color: white; 
-    padding: 12px 20px; 
-    border-radius: 25px; 
+.btn-primary {
+    background: var(--rojo-tomate);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
     border: none;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 .btn-primary:hover {
     background: #c52e12;
     transform: translateY(-2px);
 }
 
-.btn-secondary { 
-    background: var(--bg-crema); 
-    padding: 12px 20px; 
-    border-radius: 25px; 
+.btn-secondary {
+    background: var(--bg-crema);
+    padding: 12px 20px;
+    border-radius: 25px;
     border: 2px solid var(--amarillo-dorado);
     color: var(--txt-cafe);
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 .btn-secondary:hover {
     background: var(--amarillo-dorado);
     transform: translateY(-2px);
 }
 
-.cashiers-list { 
+.cashiers-list {
     flex: 2;
     background: white;
     padding: 20px;
@@ -1317,14 +1370,15 @@ nav a.is-active {
     border: 2px solid var(--amarillo-dorado);
 }
 
-.cashiers-list table { 
-    width: 100%; 
+.cashiers-list table {
+    width: 100%;
     border-collapse: collapse;
 }
 
-.cashiers-list th, .cashiers-list td { 
-    padding: 12px; 
-    border-bottom: 1px solid #eee; 
+.cashiers-list th,
+.cashiers-list td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
     text-align: left;
 }
 
@@ -1333,9 +1387,9 @@ nav a.is-active {
     border-bottom: 2px solid var(--amarillo-dorado);
 }
 
-.btn-sm { 
-    padding: 8px 12px; 
-    border-radius: 20px; 
+.btn-sm {
+    padding: 8px 12px;
+    border-radius: 20px;
     margin-right: 8px;
     border: none;
     cursor: pointer;
@@ -1343,17 +1397,18 @@ nav a.is-active {
     transition: all 0.3s ease;
 }
 
-.btn-sm.danger { 
-    background: var(--rojo-tomate); 
-    color: white; 
+.btn-sm.danger {
+    background: var(--rojo-tomate);
+    color: white;
     border: none;
 }
+
 .btn-sm.danger:hover {
     background: #c52e12;
     transform: translateY(-2px);
 }
 
-.loading { 
+.loading {
     color: #666;
     text-align: center;
     padding: 40px;
@@ -1369,47 +1424,48 @@ nav a.is-active {
         height: auto;
         min-height: 80px;
     }
-    
+
     nav {
         order: 3;
         width: 100%;
         margin-top: 10px;
         text-align: center;
     }
-    
+
     .client-layout {
         grid-template-columns: 1fr;
         height: auto;
     }
-    
+
     .cart-column {
         border-left: none;
         border-top: 1px solid #ddd;
     }
-    
+
     .orders-header {
         flex-direction: column;
         gap: 15px;
         text-align: center;
     }
-    
+
     .orders-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .pos-main {
         flex-direction: column;
     }
-    
+
     .section-products,
     .section-cart {
         flex: none;
     }
-    
+
     .admin-actions {
         flex-direction: column;
     }
 }
+
 /* =========================================
    8. VISTA MAPA SUCURSALES
    ========================================= */
@@ -1425,7 +1481,7 @@ nav a.is-active {
     border-right: 1px solid #ddd;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
 
@@ -1537,7 +1593,8 @@ nav a.is-active {
     height: 100%;
 }
 
-.loading-branches, .no-branches {
+.loading-branches,
+.no-branches {
     text-align: center;
     padding: 20px;
     color: #888;

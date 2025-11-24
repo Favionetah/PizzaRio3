@@ -11,7 +11,7 @@ const pool = mysql.createPool({
     password: '123456',
     database: 'pizzeriario_db',
     password: 'root',
-    password: 'root',
+    password: 'MTG13',
     database: 'pizzeria_db',
     waitForConnections: true,
     connectionLimit: 10,

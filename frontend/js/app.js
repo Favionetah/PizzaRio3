@@ -3,7 +3,7 @@ const { createApp } = Vue;
 // Importamos tus vistas
 import HomeView from './views/HomeView.js';
 import LoginView from './views/LoginView.js';
-import RegisterView from './views/RegisterView.js'; 
+import RegisterView from './views/RegisterView.js';
 import ClientView from './views/ClientView.js';
 import PosView from './views/PosView.js';
 import AdminCashiersView from './views/AdminCashiersView.js';
@@ -26,7 +26,7 @@ createApp({
         'myorders-view': MyOrdersView,
         'showcase-view': ShowcaseView,
         'map-view': MapView,
-        'admin-view': AdminView 
+        'admin-view': AdminView
     },
     data() {
         return {
@@ -50,13 +50,13 @@ createApp({
             this.user = userData;
 
             // AQUÍ ESTÁ LA LÓGICA DE REDIRECCIÓN
-            // Admin va a Inicio, Cajero a POS, Cliente a ClientView
+            // Admin va a Inicio, Cajero a POS, Cliente a Showcase (Menu)
             if (this.user.role === 'Administrador') {
                 this.currentView = 'home-view';
             } else if (this.user.role === 'Cajero') {
                 this.currentView = 'pos-view';
             } else {
-                this.currentView = 'client-view';
+                this.currentView = 'showcase-view';
             }
         },
 
