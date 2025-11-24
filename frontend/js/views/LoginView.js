@@ -24,12 +24,12 @@ export default {
                 
                 <p class="login-message" :style="{ color: messageColor }">{{ message }}</p>
                 
-                <div class="register-link-wrapper">
-                    <p>¿No eres cliente?</p>
-                    <button @click="$emit('navigate', 'register-view')" class="btn-register-link">
-                        Regístrate aquí
-                    </button>
-                </div>
+                <div class="login-form">
+                    <label for="password">¿No eres cliente?</label>
+                    <button @click="$emit('navigate', 'register-view')" class="btn-login">
+                        Regístrate aquí
+                    </button>
+                </div>
                 <button @click="$emit('navigate', 'home-view')" class="btn-back">Volver</button>
                 
                 <p class="login-footer">
