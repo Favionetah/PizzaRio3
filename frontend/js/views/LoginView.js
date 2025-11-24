@@ -64,16 +64,17 @@ export default {
                 if (!response.ok) {
                     this.message = data.message;
                     this.messageColor = 'var(--rojo-tomate)';
-                } else {
-                    this.message = 'Ingresando...';
-                    this.messageColor = 'green';
-
+                }  else {
+                    // ¡ÉXITO!
+                    this.message = "¡Login Exitoso!";
+                    
                     localStorage.setItem('token', data.token);
 
+                    // AVISAMOS AL APP.JS CON TODOS LOS DATOS
                     this.$emit('login-success', {
                         email: this.email,
                         role: data.role,
-                        nombre: data.nombre
+                        nombre: data.nombre // <--- Asegúrate de pasar esto
                     });
                 }
             } catch (error) {

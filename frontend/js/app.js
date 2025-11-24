@@ -29,14 +29,16 @@ createApp({
     },
     data() {
         return {
-            currentView: 'home-view', // Empezamos en la PORTADA (Foto 1)
-            user: null
+            currentView: 'home-view',
+            user: null,
+            showUserMenu: false // <--- NUEVO: Controla si el menú está abierto o cerrado
         }
     },
     methods: {
         // Función para navegar manualmente
         handleNavigation(viewName) {
             this.currentView = viewName;
+            this.showUserMenu = false; // Cierra el menú si navegas
         },
 
         // Función especial para el botón "Pide Aquí" del header
@@ -44,12 +46,16 @@ createApp({
             this.currentView = 'login-view';
         },
 
+        // NUEVO: Función para abrir/cerrar el menú del perfil
+        toggleUserMenu() {
+            this.showUserMenu = !this.showUserMenu;
+        },
+
         // Qué hacer cuando el Login es exitoso
         handleLoginSuccess(userData) {
             this.user = userData;
 
-            // AQUÍ ESTÁ LA LÓGICA DE REDIRECCIÓN
-            // Admin va a Inicio, Cajero a POS, Cliente a Showcase (Menu)
+            // Lógica de Redirección
             if (this.user.role === 'Administrador') {
                 this.currentView = 'home-view';
             } else if (this.user.role === 'Cajero') {
@@ -61,6 +67,7 @@ createApp({
 
         logout() {
             this.user = null;
+            this.showUserMenu = false; // <--- NUEVO: Asegura que el menú se cierre
             localStorage.removeItem('token');
             this.currentView = 'home-view';
         }

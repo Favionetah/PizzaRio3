@@ -58,7 +58,8 @@ AuthController.login = async (req, res) => {
         res.status(200).json({
             message: 'Login exitoso',
             token: token,
-            role: user.nombreRol
+            role: user.nombreRol,
+            nombre: user.nombre
         });
 
     } catch (error) {

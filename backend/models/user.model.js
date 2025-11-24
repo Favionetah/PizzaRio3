@@ -4,27 +4,27 @@ const User = {};
 
 User.findByEmail = async (email) => {
     try {
-        // ¡Esta es la consulta clave!
-        // 1. Unimos TUsuarios (u) con TRoles (r)
-        // 2. Obtenemos el idUsuario, el password (para comparar) y el nombreRol
-        // 3. Buscamos por email
-        // 4. (Buena práctica) Añadimos "u.estadoA = 1" para que solo usuarios activos puedan loguearse
+        // MODIFICACIÓN: Hacemos JOIN con Empleados y Clientes para sacar el nombre real
         const query = `
             SELECT 
                 u.idUsuario, 
                 u.password, 
-                r.nombreRol
+                r.nombreRol,
+                -- Si encuentra nombre en Empleados lo usa, si no, busca en Clientes, si no, pone 'Usuario'
+                COALESCE(e.nombre1, c.nombre1, 'Usuario') AS nombre
             FROM 
                 TUsuarios u
             JOIN 
                 TRoles r ON u.idRol = r.idRol
+            LEFT JOIN 
+                TEmpleados e ON u.idUsuario = e.idUsuario
+            LEFT JOIN 
+                TClientes c ON u.idUsuario = c.CICliente
             WHERE 
                 u.email = ? AND u.estadoA = 1
         `;
 
         const [rows] = await db.query(query, [email]);
-
-        // Devuelve el primer usuario encontrado (o 'undefined')
         return rows[0];
 
     } catch (error) {

@@ -1642,3 +1642,74 @@ nav a.is-active {
     margin-bottom: 5px;
     color: var(--txt-cafe);
 }
+
+/* --- Estilos del Menú de Usuario --- */
+.user-profile-container {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-user-profile {
+    background-color: transparent;
+    color: #333;
+    border: 2px solid #eee;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-user-profile:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+/* El cuadro desplegable */
+.user-dropdown {
+    position: absolute;
+    top: 115%; /* Un poco abajo del botón */
+    right: 0;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    border: 1px solid #eee;
+}
+
+.dropdown-header {
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #eee;
+    color: #666;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-item.danger {
+    color: #d62300; /* Rojo */
+    font-weight: bold;
+    border-top: 1px solid #eee;
+}
+
+.dropdown-item.danger:hover {
+    background-color: #fff0f0;
+}
