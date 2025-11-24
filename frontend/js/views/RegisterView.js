@@ -89,15 +89,75 @@ export default {
     },
     methods: {
         async handleRegister() {
-            this.message = 'Procesando registro...';
+            this.message = 'Validando datos...';
             this.messageColor = 'orange';
 
-            // Validaciones básicas extra
-            if (this.password.length < 4) {
-                this.message = 'La contraseña debe tener al menos 4 caracteres.';
+            // --- 1. VALIDACIONES FRONTEND ---
+
+            // 1.1 Validar Campos Requeridos
+            if (!this.ci || !this.nombre1 || !this.apellido1 || !this.telefono || !this.direccion || !this.email || !this.password) {
+                this.message = 'Por favor complete todos los campos obligatorios.';
                 this.messageColor = 'var(--rojo-tomate)';
                 return;
             }
+
+            // 1.2 Validar Longitud de CI (Max 20)
+            if (this.ci.length > 20) {
+                this.message = 'El CI no puede exceder los 20 caracteres.';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+
+            // 1.3 Validar Nombres y Apellidos (Solo letras y espacios, Max 50)
+            const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+            if (!nameRegex.test(this.nombre1) || !nameRegex.test(this.apellido1)) {
+                this.message = 'Nombres y Apellidos solo pueden contener letras.';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+            if (this.nombre2 && !nameRegex.test(this.nombre2)) {
+                this.message = 'El segundo nombre contiene caracteres inválidos.';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+            if (this.apellido2 && !nameRegex.test(this.apellido2)) {
+                this.message = 'El segundo apellido contiene caracteres inválidos.';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+
+            // 1.4 Validar Teléfono (Solo números, símbolos básicos, Max 20)
+            const phoneRegex = /^[0-9+\-\s()]+$/;
+            if (!phoneRegex.test(this.telefono) || this.telefono.length > 20) {
+                this.message = 'El teléfono no es válido (máx 20 caracteres).';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+
+            // 1.5 Validar Email (Formato estándar, Max 100)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(this.email) || this.email.length > 100) {
+                this.message = 'Ingrese un correo electrónico válido.';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+
+            // 1.6 Validar Contraseña (Min 6 caracteres)
+            if (this.password.length < 6) {
+                this.message = 'La contraseña debe tener al menos 6 caracteres.';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+
+            // 1.7 Validar Dirección (Max 255)
+            if (this.direccion.length > 255) {
+                this.message = 'La dirección es demasiado larga (máx 255 caracteres).';
+                this.messageColor = 'var(--rojo-tomate)';
+                return;
+            }
+
+            // --- 2. ENVÍO AL BACKEND ---
+            this.message = 'Procesando registro...';
 
             try {
                 const response = await fetch('http://localhost:3000/api/auth/register', {
