@@ -1,13 +1,13 @@
 export default {
     template: `
         <div class="my-orders-container">
-            <h2 class="orders-title">Mis Pedidos</h2>
+            <h2 class="orders-title">{{ isAdmin ? 'Historial Global de Pedidos' : 'Mis Pedidos' }}</h2>
 
             <div v-if="loading" class="loading">Cargando historial...</div>
 
             <div v-else-if="orders.length === 0" class="empty-orders-container">
-                <p>No tienes pedidos registrados aún.</p>
-                <button class="btn-pide-aqui" @click="$emit('navigate', 'showcase-view')">¡Haz tu primer pedido!</button>
+                <p>No hay pedidos registrados.</p>
+                <button v-if="!isAdmin" class="btn-pide-aqui" @click="$emit('navigate', 'showcase-view')">¡Haz tu primer pedido!</button>
             </div>
 
             <div v-else class="orders-list">
@@ -18,10 +18,16 @@ export default {
                     </div>
                     
                     <div class="order-body">
+                        <p v-if="isAdmin" style="color: var(--brand-red); font-weight: bold;">
+                            👤 Cliente: {{ order.nombreCliente }}
+                        </p>
                         <p><strong>Estado:</strong> <span :class="'status-' + normalizeStatus(order.estadoPedido)">{{ order.estadoPedido }}</span></p>
                         <p><strong>Total:</strong> Bs {{ order.totalPedido }}</p>
                         
-                        <div class="order-items">
+                        <!-- Solo mostramos detalle si NO es admin, o si decidimos implementarlo para admin también -->
+                        <!-- Para admin, el endpoint getAllHistory no devuelve items por defecto en el modelo actual. 
+                             Si quisieras ver items, habría que ajustar el backend. Por ahora mostramos resumen. -->
+                        <div v-if="!isAdmin" class="order-items">
                             <p class="items-title">Detalle:</p>
                             <ul class="items-list">
                                 <li v-for="item in parseItems(order.items)" :key="item.nombre" class="item-row">
@@ -35,10 +41,16 @@ export default {
             </div>
         </div>
     `,
+    props: ['user'],
     data() {
         return {
             orders: [],
             loading: true
+        }
+    },
+    computed: {
+        isAdmin() {
+            return this.user && this.user.role === 'Administrador';
         }
     },
     async mounted() {
@@ -49,7 +61,12 @@ export default {
                 return;
             }
 
-            const res = await fetch('http://localhost:3000/api/orders/my-history', {
+            let url = 'http://localhost:3000/api/orders/my-history';
+            if (this.isAdmin) {
+                url = 'http://localhost:3000/api/admin/orders-history';
+            }
+
+            const res = await fetch(url, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -77,8 +94,6 @@ export default {
         },
         parseItems(itemsJson) {
             try {
-                // Si viene como string JSON, lo parseamos. Si ya es objeto, lo devolvemos.
-                // A veces la BD devuelve JSON como string si no está configurado el driver
                 return typeof itemsJson === 'string' ? JSON.parse(itemsJson) : (itemsJson || []);
             } catch (e) {
                 return [];
