@@ -3,8 +3,8 @@ const db = require('../config/db');
 const Order = {}
 
 Order.create = async (orderData) => {
-    const { ciCliente, total, items } = orderData; 
-    
+    const { ciCliente, total, items } = orderData;
+
     try {
         // INSERTAR LA CABECERA
         // Nota: Aquí estamos usando '1234567' fijo para el empleado para evitar errores
@@ -14,9 +14,9 @@ Order.create = async (orderData) => {
             INSERT INTO TPedidos 
             (CICliente, idSucursal, CIEmpleado, tipoPedido, estadoPedido, totalPedido, fechaPedido)
             VALUES (?, 'SC-01', '1234567', 'Para llevar', 'Pendiente', ?, NOW())
-        `, 
-        [ciCliente, total]); // <--- ¡AQUÍ entra 'GENERICO'!
-        
+        `,
+            [ciCliente, total]); // <--- ¡AQUÍ entra 'GENERICO'!
+
         const idPedidoGenerado = result.insertId;
         for (const item of items) {
             let idPizza = null;
@@ -34,13 +34,13 @@ Order.create = async (orderData) => {
                 (idPedido, idPizza, idProducto, cantidad, precioUnitario, subtotal)
                 VALUES (?, ?, ?, ?, ?, ?)
                 `, [
-                    idPedidoGenerado,
-                    idPizza,
-                    idProducto,
-                    item.cantidad,
-                    item.precio,
-                    (item.precio * item.cantidad)
-                ]);
+                idPedidoGenerado,
+                idPizza,
+                idProducto,
+                item.cantidad,
+                item.precio,
+                (item.precio * item.cantidad)
+            ]);
         }
 
         return idPedidoGenerado;
@@ -94,6 +94,28 @@ Order.getByClient = async (ciCliente) => {
             ORDER BY fechaPedido DESC
         `;
         const [rows] = await db.query(sql, [ciCliente]);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// 4. PARA EL ADMIN: Ver historial global
+Order.getAllHistory = async () => {
+    try {
+        const sql = `
+            SELECT 
+                p.idPedido, 
+                p.fechaPedido, 
+                p.totalPedido, 
+                p.estadoPedido, 
+                p.tipoPedido,
+                CONCAT(c.nombre1, ' ', c.apellido1) AS nombreCliente
+            FROM TPedidos p
+            JOIN TClientes c ON p.CICliente = c.CICliente
+            ORDER BY p.fechaPedido DESC
+        `;
+        const [rows] = await db.query(sql);
         return rows;
     } catch (error) {
         throw error;

@@ -10,6 +10,10 @@ export default {
                         <button :class="{ activo: filtro === 'Pizzas' }" @click="filtro = 'Pizzas'">🍕 Pizzas</button>
                         <button :class="{ activo: filtro === 'Bebida' }" @click="filtro = 'Bebida'">🥤 Bebidas</button>
                     </div>
+                    <!-- Botón Admin Crear -->
+                    <button v-if="user && user.role === 'Administrador'" class="btn-brand" @click="openEditModal(null)" style="margin-left: 10px;">
+                        ➕ Nuevo Producto
+                    </button>
                 </div>
 
                 <div v-if="loading" class="loading">Cargando sabor...</div>
@@ -28,13 +32,19 @@ export default {
                             <p class="desc">{{ prod.descripcion }}</p>
                             <div class="precio-btn">
                                 <span>Bs {{ prod.precio }}</span>
-                                <button v-if="user" class="btn-add" @click="agregar(prod)">AGREGAR</button>
+                                <button v-if="user && user.role !== 'Administrador'" class="btn-add" @click="agregar(prod)">AGREGAR</button>
+                                
+                                <!-- Controles Admin -->
+                                <div v-if="user && user.role === 'Administrador'" style="display:flex; gap:5px;">
+                                    <button class="btn-sm" @click="openEditModal(prod)">✏️</button>
+                                    <button class="btn-sm danger" @click="deleteProduct(prod)">🗑️</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal de producto -->
+                <!-- Modal de producto (Vista Cliente) -->
                 <div v-if="modalOpen" class="modal-overlay" @click.self="closeModal">
                     <div class="modal-card">
                         <button class="modal-close" @click="closeModal">✕</button>
@@ -45,17 +55,49 @@ export default {
                                 <p class="modal-desc">{{ selectedProduct.descripcion }}</p>
                                 <p><strong>Categoría:</strong> {{ selectedProduct.categoria }}</p>
                                 <p><strong>Precio:</strong> Bs {{ selectedProduct.precio }}</p>
-                                <div class="modal-actions" v-if="user">
+                                <div class="modal-actions" v-if="user && user.role !== 'Administrador'">
                                     <button class="btn-add" @click="agregar(selectedProduct); closeModal()">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal CRUD (Vista Admin) -->
+                <div v-if="editModalOpen" class="modal-overlay">
+                    <div class="modal-box">
+                        <h3>{{ isEditing ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+                        
+                        <label>Nombre:</label>
+                        <input v-model="form.nombre" class="form-control">
+                        
+                        <label>Descripción:</label>
+                        <textarea v-model="form.descripcion" class="form-control"></textarea>
+                        
+                        <label>Precio:</label>
+                        <input type="number" v-model="form.precio" class="form-control">
+                        
+                        <label>Categoría:</label>
+                        <select v-model="form.categoria" class="form-control">
+                            <option value="Pizzas">Pizzas</option>
+                            <option value="Bebida">Bebida</option>
+                            <option value="Postre">Postre</option>
+                        </select>
+
+                        <label>Imagen (URL/Nombre):</label>
+                        <input v-model="form.imagen" class="form-control" placeholder="ej: pizza1.jpg">
+
+                        <div style="margin-top:20px; text-align:right;">
+                            <button class="btn-brand" @click="saveProduct">Guardar</button>
+                            <button class="btn-secondary" @click="editModalOpen = false">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- CART COLUMN (Only visible if user is logged in) -->
-            <div class="cart-column" v-if="user">
+            <!-- CART COLUMN (Only visible if user is logged in AND NOT ADMIN) -->
+            <div class="cart-column" v-if="user && user.role !== 'Administrador'">
                 <div class="cart-header">
                     <h3>Tu Pedido</h3>
                     <span class="badge">{{ carrito.length }} items</span>
@@ -104,7 +146,12 @@ export default {
             filtro: 'Todos',
             carrito: [],
             modalOpen: false,
-            selectedProduct: null
+            selectedProduct: null,
+
+            // CRUD Data
+            editModalOpen: false,
+            isEditing: false,
+            form: { id: null, nombre: '', descripcion: '', precio: '', categoria: 'Pizzas', imagen: '' }
         }
     },
     computed: {
@@ -117,17 +164,20 @@ export default {
         }
     },
     async mounted() {
-        try {
-            const res = await fetch('http://localhost:3000/api/products');
-            const data = await res.json();
-            this.productos = data;
-            this.loading = false;
-        } catch (error) {
-            console.error('Error cargando menú:', error);
-            this.loading = false;
-        }
+        this.loadProducts();
     },
     methods: {
+        async loadProducts() {
+            try {
+                const res = await fetch('http://localhost:3000/api/products');
+                const data = await res.json();
+                this.productos = data;
+                this.loading = false;
+            } catch (error) {
+                console.error('Error cargando menú:', error);
+                this.loading = false;
+            }
+        },
         openModal(prod) {
             this.selectedProduct = prod;
             this.modalOpen = true;
@@ -182,6 +232,63 @@ export default {
             } catch (error) {
                 console.error(error);
                 alert("Error de conexión");
+            }
+        },
+
+        // --- CRUD METHODS ---
+        openEditModal(prod) {
+            if (prod) {
+                this.isEditing = true;
+                this.form = { ...prod };
+            } else {
+                this.isEditing = false;
+                this.form = { id: null, nombre: '', descripcion: '', precio: '', categoria: 'Pizzas', imagen: '' };
+            }
+            this.editModalOpen = true;
+        },
+        async saveProduct() {
+            const token = localStorage.getItem('token');
+            const url = this.isEditing
+                ? `http://localhost:3000/api/products/${this.form.id}`
+                : 'http://localhost:3000/api/products';
+            const method = this.isEditing ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(this.form)
+                });
+
+                if (res.ok) {
+                    alert('Guardado correctamente');
+                    this.editModalOpen = false;
+                    this.loadProducts();
+                } else {
+                    alert('Error al guardar');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Error de red');
+            }
+        },
+        async deleteProduct(prod) {
+            if (!confirm(`¿Eliminar ${prod.nombre}?`)) return;
+            const token = localStorage.getItem('token');
+            try {
+                const res = await fetch(`http://localhost:3000/api/products/${prod.id}?categoria=${prod.categoria}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    alert('Eliminado');
+                    this.loadProducts();
+                }
+            } catch (e) {
+                alert('Error');
             }
         }
     }

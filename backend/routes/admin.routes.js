@@ -29,4 +29,9 @@ router.put('/schedule/:id', adminGuard, AdminController.updateSchedule); // <-- 
 router.delete('/schedule/:id', adminGuard, AdminController.deleteSchedule);
 
 
+const OrderController = require('../controllers/order.controller');
+
+// ... otras rutas admin ...
+router.get('/orders-history', authMiddleware, OrderController.getAllHistory);
+
 module.exports = router;

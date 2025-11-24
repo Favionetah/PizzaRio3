@@ -12,7 +12,7 @@ const posRoutes = require('./routes/pos.routes.js');
 const clientRoutes = require('./routes/client.routes.js');
 const adminRoutes = require('./routes/admin.routes.js');
 const mapRoutes = require('./routes/map.routes');
-//const productRoutes = require('./routes/product.routes.js');
+const productRoutes = require('./routes/product.routes.js');
 
 
 app.use('/api/auth', authRoutes);
@@ -20,7 +20,7 @@ app.use('/api/pos', posRoutes);
 app.use('/api', clientRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/map', mapRoutes);
-//app.use('/api/products', productRoutes);
+app.use('/api/products', productRoutes);
 
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
