@@ -1562,3 +1562,48 @@ nav a.is-active {
     }
 }
 
+/* === ESTILO PARA register-link-wrapper (Login) === */
+.register-link-wrapper {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: var(--bg-crema);
+    border: 3px dashed var(--amarillo-dorado);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+.register-link-wrapper p {
+    color: var(--txt-cafe);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+/* Botón igual estilo que btn-back pero versión “acción positiva” */
+.btn-register-link {
+    background-color: var(--amarillo-dorado);
+    color: var(--txt-cafe);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 5px 0 #c99703;
+}
+
+.btn-register-link:hover {
+    background-color: var(--rojo-tomate);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 #a8250f;
+}
+
+.btn-register-link:active {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #a8250f;
+}
