@@ -31,10 +31,10 @@
                 <a href="#" @click.prevent="currentView = 'map-view'">Sucursales</a>
                 <a href="#" v-if="user" @click.prevent="currentView = 'myorders-view'">Pedidos</a>
                 <a href="#" v-if="user && user.role === 'Administrador'"
-                    @click.prevent="currentView = 'admin-view'">Administración</a>
+                    @click.prevent="currentView = 'admin-employees-view'">Administración</a>
 
                 <a href="#" v-if="user && user.role === 'Administrador'"
-                    @click.prevent="currentView = 'admin-view'">Horarios</a>
+                    @click.prevent="currentView = 'admin-schedules-view'">Horarios</a>
 
 
             </nav>

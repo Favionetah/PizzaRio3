@@ -14,19 +14,18 @@ import MapView from './views/MapView.js';
 import AdminView from './views/AdminView.js';
 
 createApp({
-
     components: {
         'home-view': HomeView,
         'login-view': LoginView,
         'register-view': RegisterView,
         'client-view': ClientView,
         'pos-view': PosView,
-        'admin-view': AdminCashiersView,
+        'admin-employees-view': AdminCashiersView,
         'menu-view': MenuView,
         'myorders-view': MyOrdersView,
         'showcase-view': ShowcaseView,
         'map-view': MapView,
-        'admin-view': AdminView
+        'admin-schedules-view': AdminView
     },
     data() {
         return {
