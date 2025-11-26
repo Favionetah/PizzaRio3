@@ -38,4 +38,4 @@ npm-debug.log*
 
 # Build de producción
 /dist
-/build
+/buildbackend/config/db.js
