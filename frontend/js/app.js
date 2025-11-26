@@ -1,9 +1,10 @@
 const { createApp } = Vue;
 
-// Importamos tus vistas
+// Importación de vistas
 import HomeView from './views/HomeView.js';
 import LoginView from './views/LoginView.js';
 import RegisterView from './views/RegisterView.js';
+import CheckoutView from './views/CheckoutView.js';
 import ClientView from './views/ClientView.js';
 import PosView from './views/PosView.js';
 import AdminCashiersView from './views/AdminCashiersView.js';
@@ -18,6 +19,7 @@ createApp({
         'home-view': HomeView,
         'login-view': LoginView,
         'register-view': RegisterView,
+        'checkout-view': CheckoutView,
         'client-view': ClientView,
         'pos-view': PosView,
         'admin-employees-view': AdminCashiersView,
@@ -27,35 +29,51 @@ createApp({
         'map-view': MapView,
         'admin-schedules-view': AdminView
     },
+
     data() {
         return {
             currentView: 'home-view',
             user: null,
-            showUserMenu: false // <--- NUEVO: Controla si el menú está abierto o cerrado
+
+            // PARA MENÚ DE PERFIL
+            showUserMenu: false,
+
+            // PARA CHECKOUT
+            carritoCheckout: [],
+            carritoGlobal: []
         }
     },
+
     methods: {
-        // Función para navegar manualmente
+
+        // Navegación general
         handleNavigation(viewName) {
             this.currentView = viewName;
-            this.showUserMenu = false; // Cierra el menú si navegas
+            this.showUserMenu = false;
         },
 
-        // Función especial para el botón "Pide Aquí" del header
+        // Botón "Pide Aquí"
         goToLogin() {
             this.currentView = 'login-view';
         },
 
-        // NUEVO: Función para abrir/cerrar el menú del perfil
+        // Mostrar u ocultar menú del perfil
         toggleUserMenu() {
             this.showUserMenu = !this.showUserMenu;
         },
 
-        // Qué hacer cuando el Login es exitoso
+        // Enviar carrito al checkout
+        goToCheckout(carrito) {
+            this.carritoCheckout = carrito;
+            this.carritoGlobal = carrito; // sincroniza globalmente
+            this.currentView = 'checkout-view';
+        },
+
+        // Login correcto
         handleLoginSuccess(userData) {
             this.user = userData;
 
-            // Lógica de Redirección
+            // Redirección automática según rol
             if (this.user.role === 'Administrador') {
                 this.currentView = 'home-view';
             } else if (this.user.role === 'Cajero') {
@@ -65,9 +83,10 @@ createApp({
             }
         },
 
+        // Cerrar sesión
         logout() {
             this.user = null;
-            this.showUserMenu = false; // <--- NUEVO: Asegura que el menú se cierre
+            this.showUserMenu = false;
             localStorage.removeItem('token');
             this.currentView = 'home-view';
         }

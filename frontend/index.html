@@ -5,23 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Río</title>
+
     <link rel="stylesheet" href="css/style1.css">
     <link rel="stylesheet" href="css/pos.css">
     <link rel="stylesheet" href="css/admin.css">
 
+    <!-- Vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYcO6RxgS1q1GjGki_OOH0GbXoJW5ogV0&callback=initMap"></script>
+
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYcO6RxgS1q1GjGki_OOH0GbXoJW5ogV0&callback=initMap"></script>
+
+    <!-- QR Code CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
 
 <body>
 
     <div id="app">
         <header class="bk-header">
+
             <div class="logo">
                 <img src="images/pizzaoceanohdPENEg.png" alt="Logo Pizza Rio" class="logo-icon">
                 <h1>Pizza Río</h1>
             </div>
+
             <nav>
                 <a href="#" @click.prevent="currentView = 'home-view'">Inicio</a>
                 <a href="#" v-if="!user || user.role !== 'Cajero'"
@@ -40,6 +48,7 @@
 
             <div class="auth-buttons">
 
+                <!-- PERFIL -->
                 <div v-if="user" class="user-profile-container">
 
                     <button @click="toggleUserMenu" class="btn-user-profile">
@@ -63,14 +72,23 @@
                     </div>
                 </div>
 
+                <!-- BOTÓN LOGIN -->
                 <button v-else @click="goToLogin" class="btn-pide-aqui">PIDE AQUÍ</button>
             </div>
 
         </header>
 
         <main class="main-content">
-            <component :is="currentView" :user="user" @navigate="handleNavigation" @login-success="handleLoginSuccess"
-                @logout="logout"></component>
+            <component 
+                :is="currentView" 
+                :user="user"
+                :carrito="carritoCheckout"
+                @update:carrito="carritoCheckout = $event"
+                @navigate="handleNavigation"
+                @login-success="handleLoginSuccess"
+                @go-checkout="goToCheckout"
+                @logout="logout">
+            </component>
         </main>
 
         <footer class="pizza-rio-footer">
@@ -79,7 +97,6 @@
     </div>
 
     <script type="module" src="js/app.js"></script>
-
 </body>
 
 </html>

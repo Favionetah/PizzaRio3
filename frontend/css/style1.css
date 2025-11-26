@@ -1657,6 +1657,219 @@ nav a.is-active {
     border: 1px solid #eee;
 }
 
+.payment-selection button.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* =========================================
+   7. VISTA CHECKOUT (PAGO Y REVISIÓN)
+   ========================================= */
+.checkout-layout {
+    padding: 40px 20px 100px; /* Padding, más espacio abajo por el footer */
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--bg-crema);
+    min-height: calc(100vh - 80px); /* Ocupa el espacio disponible */
+}
+
+.checkout-layout h2 {
+    color: var(--rojo-tomate);
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: 4px solid var(--amarillo-dorado);
+}
+
+.checkout-items {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Reutilizando estilos de cart-item, pero con mejoras visuales */
+.checkout-items .cart-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0;
+}
+.checkout-items .cart-item:last-child {
+    border-bottom: none;
+}
+
+.checkout-items .cart-item-info h4 {
+    font-size: 1.1rem;
+}
+
+.checkout-items .cart-item-info span {
+    color: var(--txt-cafe);
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+/* Controles de cantidad más visibles */
+.checkout-items .cart-controls button {
+    background-color: var(--bg-crema);
+    border: 1px solid var(--amarillo-dorado);
+    color: var(--txt-cafe);
+}
+.checkout-items .cart-controls button:hover {
+    background-color: var(--rojo-tomate);
+    color: white;
+}
+
+
+/* --- Sección de Pago --- */
+.payment-selection {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--amarillo-dorado);
+    text-align: center;
+}
+
+.payment-selection h3 {
+    color: var(--txt-cafe);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.payment-selection button {
+    padding: 15px 30px;
+    border: 3px solid var(--txt-cafe);
+    background: white;
+    color: var(--txt-cafe);
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 0 10px 15px;
+    transition: all 0.3s ease;
+}
+
+.payment-selection button.selected,
+.payment-selection button:hover {
+    background-color: var(--amarillo-dorado);
+    border-color: var(--rojo-tomate);
+    color: var(--txt-cafe);
+    box-shadow: 0 4px 10px rgba(242, 183, 5, 0.4);
+    transform: translateY(-2px);
+}
+
+
+/* --- Footer del Carrito (Checkout) --- */
+.checkout-items .cart-footer {
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    display: block; /* Desactivamos el margin-top: auto que tenía en el cart-column */
+    margin-top: 30px;
+}
+
+/* Botón de Confirmación/Pago */
+.btn-checkout {
+    /* Reutiliza el estilo del carrito pero lo hacemos más grande */
+    font-size: 1.3rem; 
+    padding: 18px;
+    border-radius: 50px; /* Botón grande y redondo */
+    margin-top: 20px;
+    box-shadow: 0 6px 0 #c52e12;
+}
+.btn-checkout:not(:disabled):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 #a8250f;
+}
+.btn-checkout:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #a8250f;
+}
+
+/* Botón Cancelar */
+.btn-cancel {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--txt-cafe);
+    border: 2px solid var(--txt-cafe);
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: var(--txt-cafe);
+    color: white;
+    border-color: var(--txt-cafe);
+}
+
+/* Estilo para QR y formulario de tarjeta */
+.qr-display, .card-form {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-display ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.qr-display li, .card-form input {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Inputs de tarjeta */
+.card-form input {
+    width: 250px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Botones de pago */
+.payment-selection button {
+    margin: 5px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.payment-selection button.selected {
+    background-color: #4caf50;
+    color: white;
+    border-color: #4caf50;
+}
+
+/* Botones de checkout */
+.btn-checkout, .btn-cancel {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-checkout:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 .dropdown-header {
     padding: 10px 15px;
     background-color: #f8f8f8;
